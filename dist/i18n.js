@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = {
-module.exports = {
   en_US: {
     createdAt: 'Created',
     amount: 'Total',
