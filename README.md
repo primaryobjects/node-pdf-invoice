@@ -38,4 +38,26 @@ document.generate() // triggers rendering
 document.pdfkitDoc.pipe(fs.createWriteStream('path/to/file.pdf'))
 ```
 
+# Example Writing a PDF to a Base64 String
+
+```js
+const pdfInvoice = require('pdf-invoice');
+const { Base64Encode } = require('base64-stream');
+
+let content = ''; // contains the base64 string
+const pdfkitDoc = document.pdfkitDoc;
+const stream = pdfkitDoc.pipe(new Base64Encode());
+
+stream.on('data', chunk => {
+  content += chunk;
+});
+
+stream.on('end', () => {
+  // The PDF has been converted to a base64 string, send to email, disk, etc.
+  console.log(content);
+});
+
+document.generate(); // will trigger the stream to end
+```
+
 Checkout this PDF demo at https://github.com/Astrocoders/node-pdf-invoice/blob/master/tests/testing.pdf
